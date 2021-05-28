@@ -5,9 +5,7 @@
  */
 package controlador;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -19,8 +17,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author henry
  */
-@WebServlet(name = "obt_arduino", urlPatterns = {"/obt_arduino"})
-public class obt_arduino extends HttpServlet {
+@WebServlet(name = "quemar", urlPatterns = {"/quemar"})
+public class quemar extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -34,6 +32,18 @@ public class obt_arduino extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet quemar</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet quemar at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -62,36 +72,6 @@ public class obt_arduino extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        PrintWriter out = response.getWriter();
-        String comando = "arduino-cli board list";
-        try {
-            Process process = Runtime.getRuntime().exec("cmd /c D:\\\\Arduino\\" + comando);//cmd /c dir C:\\Users\\jhonp\\OneDrive\\Escritorio
-            BufferedReader br = new BufferedReader(new InputStreamReader(process.getInputStream()));
-            String resultado = null;
-            String inicio = "<div class=\"form-check\">";
-            String intermedio = " <label class=\"form-check-label nom_placa\" for=\"flexRadioDefault1\"> ";
-            String fin = "</label>" + "</div>";
-            if (br.readLine() == null) {
-                out.write("La placa no esta conectada o no la reconoce");
-            }
-            boolean hay_placa = false;
-            int num_placa = 1;
-            while ((resultado = br.readLine()) != null) {
-                if (resultado.length() != 0) {
-                    out.write(inicio
-                            + " <input class=\"form-check-input\" type=\"radio\" name=\"placa\" id=\"placa-" + num_placa + "\"> "
-                            + intermedio + resultado + fin);
-                    hay_placa = true;
-                    num_placa = num_placa + 1;
-                }
-            }
-            if (!hay_placa) {
-                out.write("La placa no esta conectada o no la reconoce");
-            }
-
-        } catch (IOException ioe) {
-            System.out.println(ioe);
-        }
         processRequest(request, response);
     }
 

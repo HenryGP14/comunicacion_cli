@@ -1,20 +1,20 @@
-:root{
+:root {
     --color-fondo: #212528;
 }
 
-body{
+body {
     background-color: var(--color-fondo);
-    font-family: 'Roboto', sans-serif;
+    font-family: "Roboto", sans-serif;
     color: white;
 }
 
-main{
+main {
     width: 70%;
     margin: 0px auto;
     /* background-color: aliceblue; */
 }
 
-.logo{
+.logo {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -22,48 +22,48 @@ main{
     padding: 20px 0px;
 }
 
-.img-logo{
+.img-logo {
     max-height: 50px;
     margin-left: 10px;
 }
 
-.titulo{
+.titulo {
     background-color: #087c80;
     color: white;
 }
 
-.rectangulo{
+.rectangulo {
     padding: 15px 15px;
     border-radius: 6px;
     margin: 10px 0px;
 }
 
-.contenido{
+.contenido {
     margin: 0px 15px;
 }
 
-input{
+input {
     margin: 0px 0px 15px 0px !important;
 }
 
-.display-center{
+.display-center {
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.img-placa{
+.img-placa {
     max-height: 240px;
 }
 
-.input-text{
+.input-text {
     width: 98%;
     background-color: transparent;
     color: white;
     border-style: groove;
 }
 
-.btn{
+.btn {
     padding: 9px 15px;
     font-size: 15px;
     color: rgb(20, 20, 20);
@@ -72,27 +72,35 @@ input{
     border: none;
 }
 
-.btn:hover{
+.btn:hover {
     background-color: #087c80;
 }
 
-.btn-compilar{
+.btn-compilar {
     background-color: #66b5f8;
     margin: 0px 10px;
 }
 
-.btn-enviar{
+.btn-enviar {
     background-color: #c387ff;
     margin: 0px 10px;
 }
 
-.display-rigth{
+.display-rigth {
     display: flex;
     justify-content: flex-end;
 }
 
-.botones{
+.botones {
     margin: 10px 0px;
     padding: 15px 0px;
     border-top: #087c80 1px dashed;
+}
+
+#txtResultado {
+    background-color: white;
+    border: solid 1px grey;
+    width: 98%;
+    height: 200px;
+    color: #087c80;
 }

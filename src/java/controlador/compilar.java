@@ -19,8 +19,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author henry
  */
-@WebServlet(name = "obt_arduino", urlPatterns = {"/obt_arduino"})
-public class obt_arduino extends HttpServlet {
+@WebServlet(name = "compilar", urlPatterns = {"/compilar"})
+public class compilar extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -63,32 +63,18 @@ public class obt_arduino extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         PrintWriter out = response.getWriter();
-        String comando = "arduino-cli board list";
+        String comando = "arduino-cli compile --fqbn arduino:avr:";
+        String puerto = request.getParameter("puerto");;
+        String soporte = "uno ";
+        String directorio = request.getParameter("directorio");
+        
         try {
-            Process process = Runtime.getRuntime().exec("cmd /c D:\\\\Arduino\\" + comando);//cmd /c dir C:\\Users\\jhonp\\OneDrive\\Escritorio
+            Process process = Runtime.getRuntime().exec("cmd /c D:\\\\Arduino\\" + comando + soporte + directorio);//cmd /c dir C:\\Users\\jhonp\\OneDrive\\Escritorio
             BufferedReader br = new BufferedReader(new InputStreamReader(process.getInputStream()));
             String resultado = null;
-            String inicio = "<div class=\"form-check\">";
-            String intermedio = " <label class=\"form-check-label nom_placa\" for=\"flexRadioDefault1\"> ";
-            String fin = "</label>" + "</div>";
-            if (br.readLine() == null) {
-                out.write("La placa no esta conectada o no la reconoce");
-            }
-            boolean hay_placa = false;
-            int num_placa = 1;
             while ((resultado = br.readLine()) != null) {
-                if (resultado.length() != 0) {
-                    out.write(inicio
-                            + " <input class=\"form-check-input\" type=\"radio\" name=\"placa\" id=\"placa-" + num_placa + "\"> "
-                            + intermedio + resultado + fin);
-                    hay_placa = true;
-                    num_placa = num_placa + 1;
-                }
+                out.write("<p>" + resultado + "</p>");
             }
-            if (!hay_placa) {
-                out.write("La placa no esta conectada o no la reconoce");
-            }
-
         } catch (IOException ioe) {
             System.out.println(ioe);
         }
