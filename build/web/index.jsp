@@ -74,7 +74,7 @@
         $(document).ready(function () {
             $('#actualizar').click(function (event) {
                 $.post('obt_arduino', {}, function (responseText) {
-                    $('#list_placas').text(responseText);
+                    $('#list_placas').append(responseText);
                 });
             });
         });
