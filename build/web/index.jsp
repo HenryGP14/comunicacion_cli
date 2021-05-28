@@ -29,20 +29,9 @@
             <div class="titulo rectangulo">Placas</div>
             <div class="contenido">
                 <p>Seleccione la placa que va a utilizar</p>
-                <div class="lista">
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-                        <label class="form-check-label" for="flexRadioDefault1">COM9 Serial Port (USB) Arduino Leonardo
-                            arduino:avr:leonardo</label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2"
-                            checked>
-                        <label class="form-check-label" for="flexRadioDefault2">COM1 Serial Port Unknown</label>
-                    </div>
-                </div>
+                <div class="lista" id="list_placas"> </div>
                 <div class="display-rigth">
-                    <button class="btn" type="submit">Actualizar</button>
+                    <button class="btn" id="actualizar" type="button">Actualizar</button>
                 </div>
             </div>
         </div>
@@ -79,6 +68,13 @@
                     nombre: nombreVar
                 }, function (responseText) {
                     $('#txtResultado').append(responseText);
+                });
+            });
+        });
+        $(document).ready(function () {
+            $('#actualizar').click(function (event) {
+                $.post('obt_arduino', {}, function (responseText) {
+                    $('#list_placas').text(responseText);
                 });
             });
         });

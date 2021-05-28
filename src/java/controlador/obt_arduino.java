@@ -7,7 +7,6 @@ package controlador;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -20,11 +19,12 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author henry
  */
-@WebServlet(name = "cmdComand", urlPatterns = {"/cmdComand"})
-public class cmdComand extends HttpServlet {
+@WebServlet(name = "obt_arduino", urlPatterns = {"/obt_arduino"})
+public class obt_arduino extends HttpServlet {
 
     /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
      *
      * @param request servlet request
      * @param response servlet response
@@ -33,7 +33,7 @@ public class cmdComand extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.getRequestDispatcher("index.jsp").forward(request, response);
+        response.setContentType("text/html;charset=UTF-8");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -62,19 +62,24 @@ public class cmdComand extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        String comando = request.getParameter("nombre");
+        String comando = "arduino-cli board list";
         try {
             Process process = Runtime.getRuntime().exec("cmd /c D:\\\\Arduino\\" + comando);//cmd /c dir C:\\Users\\jhonp\\OneDrive\\Escritorio
             BufferedReader br = new BufferedReader(new InputStreamReader(process.getInputStream()));
             String resultado = null;
+            String inicio = "<div class=\"form-check\">" +
+                    " <input class=\"form-check-input\" type=\"radio\" name=\"flexRadioDefault\" id=\"flexRadioDefault1\"> "+
+                    " <label class=\"form-check-label\" for=\"flexRadioDefault1\"> ";
+            String fin = "</label>" + "</div>";
+            br.readLine();
             while ((resultado = br.readLine()) != null) {
-                out.write("<p>" + resultado + "</p>");
+                out.write(inicio + resultado + fin);
             }
         } catch (IOException ioe) {
             System.out.println(ioe);
         }
+        processRequest(request, response);
     }
 
     /**
