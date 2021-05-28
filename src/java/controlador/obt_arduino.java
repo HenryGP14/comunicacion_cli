@@ -74,7 +74,7 @@ public class obt_arduino extends HttpServlet {
             String fin = "</label>" + "</div>";
             br.readLine();
             while ((resultado = br.readLine()) != null) {
-                if(resultado != " ")
+                if(resultado != " " || resultado != null || resultado != "")
                     out.write(inicio + resultado + fin);
             }
         } catch (IOException ioe) {
