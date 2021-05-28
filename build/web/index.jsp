@@ -7,32 +7,82 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <script src="http://code.jquery.com/jquery-latest.js">
 
-        </script>
-        <script>
-                $(document).ready(function() {
-                        $('#submit').click(function(event) {
-                                var nombreVar = $('#txtComando').val();
-                                // Si en vez de por post lo queremos hacer por get, cambiamos el $.post por $.get
-                                $.post('cmdComand', {
-                                        nombre : nombreVar
-                                }, function(responseText) {
-                                        $('#txtResultado').append(responseText);
-                                });
-                        });
-                });
-        </script>
-        <title>JSP Page</title>
-    </head>
-    <body>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <script src="http://code.jquery.com/jquery-latest.js"> </script>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+
+    <title>IDE Arduino WEB</title>
+</head>
+
+<body>
+
+    <main>
+        <div class="logo">
+            <div>Arduino</div>
+            <img class="img-logo" src="./logo arduino.png" alt="logo">
+        </div>
+
+        <div>
+            <div class="titulo rectangulo">Placas</div>
+            <div class="contenido">
+                <p>Seleccione la placa que va a utilizar</p>
+                <div class="lista">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                        <label class="form-check-label" for="flexRadioDefault1">COM9 Serial Port (USB) Arduino Leonardo
+                            arduino:avr:leonardo</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2"
+                            checked>
+                        <label class="form-check-label" for="flexRadioDefault2">COM1 Serial Port Unknown</label>
+                    </div>
+                </div>
+                <div class="display-rigth">
+                    <button class="btn" type="submit">Actualizar</button>
+                </div>
+            </div>
+        </div>
+        <form>
+            <div class="titulo rectangulo">Código</div>
+            <div class="contenido">
+                <p>Ingrese la ruta del código</p>
+                <input type="text" name="ruta" id="input-ruta" class="input-text rectangulo"
+                    placeholder="Ejemplo: C:\Carpeta\Arduino-CLI\MyFirstSketch.ino">
+                <div class="display-rigth">
+                    <button class="btn" type="submit">Cargar ino</button>
+                </div>
+            </div>
+        </form>
+        <br>
+
         <form>
             <label for="txtComando">Ingresar comando</label><br>
             <input name="txtComando" id="txtComando" type="text" placeholder="Ingrese el comando..." required>
-            <input type="button" id="submit" value="ejecutar">
+            <div class="display-center botones">
+                <input class="btn btn-compilar" type="button" id="submit" value="Compilar" />
+                <button class="btn btn-enviar" type="submit">Enviar a placa</button>
+            </div>
         </form>
-        <div id="txtResultado" style="width: 800px; height: 500px; border: 1px solid black; background: aquamarine; overflow-y: scroll;"></div>
-    </body>
+
+        <div id="txtResultado"></div>
+    </main>
+    <script>
+        $(document).ready(function () {
+            $('#submit').click(function (event) {
+                var nombreVar = $('#txtComando').val();
+                // Si en vez de por post lo queremos hacer por get, cambiamos el $.post por $.get
+                $.post('cmdComand', {
+                    nombre: nombreVar
+                }, function (responseText) {
+                    $('#txtResultado').append(responseText);
+                });
+            });
+        });
+    </script>
+</body>
+
 </html>

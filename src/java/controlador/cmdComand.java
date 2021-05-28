@@ -66,7 +66,7 @@ public class cmdComand extends HttpServlet {
         PrintWriter out = response.getWriter();
         String comando = request.getParameter("nombre");
         try {
-            Process process = Runtime.getRuntime().exec("cmd /c " + comando);//cmd /c dir C:\\Users\\jhonp\\OneDrive\\Escritorio
+            Process process = Runtime.getRuntime().exec("cmd /c D:\\\\Arduino\\" + comando);//cmd /c dir C:\\Users\\jhonp\\OneDrive\\Escritorio
             BufferedReader br = new BufferedReader(new InputStreamReader(process.getInputStream()));
             String resultado = null;
             while ((resultado = br.readLine()) != null) {
